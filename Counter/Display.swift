@@ -157,9 +157,23 @@ class Display: UIView {
         let xOrigin = bounds.origin.x
         let yOrigin = bounds.origin.y
         // This needs re-doing. The segmentWidth is the whole view width. It should only be one-fifteenth of that.
-        let sscRect = CGRectMake(xOrigin, yOrigin, bounds.size.width, segmentHeight)
+        /*
+        let sscRect = CGRectMake(xOrigin, yOrigin, bounds.size.width/15, segmentHeight)
         // This needs completing. It only draws one SSC. It needs to be put in a loop to show all 15 SSCs.
         drawSSC(context, sscRect:sscRect, mask:segmentMasks[8])
+        */
+        /*
+        let sscRect = CGRectMake(xOrigin + bounds.size.width/15, yOrigin, bounds.size.width/15, segmentHeight)
+        drawSSC(context, sscRect:sscRect, mask:segmentMasks[10])
+        */
+        let shift = bounds.size.width/15 // character size
+        var shiftOffset:CGFloat = 0      // how many positions we want to move over
+        for i in masks
+        {
+            let sscRect = CGRectMake(xOrigin + (shift * shiftOffset), yOrigin, bounds.size.width/15, segmentHeight)
+            drawSSC(context, sscRect: sscRect, mask: i)
+            shiftOffset++
+        }
     }
 
 }
